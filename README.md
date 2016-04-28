@@ -1,2 +1,2 @@
-# misc
-Literally a storage base for a bunch of abstract C stuffs, probably focusing on ncurses because, well, it's pretty neato.
+# misC
+HAH, GET IT? misC? BECAUSE IT'S A BUNCH OF USELESS C CRAP HAHAHAHAH
