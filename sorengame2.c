@@ -9,7 +9,7 @@ char pName[20];
 int spikeCheckInt;
 int waterCheckInt;
 int fieldCheckInt;
-int health = 100;
+int health = 500;
 int hunger = 100;
 int map[20][20]={0};
 int pond[6][6]={0};
@@ -19,19 +19,16 @@ int key[10][10]={0};
 int usrx = 10;
 int usry = 10;
 int moveCheckInt;
-int m;
-int healthBar[20]={0};
 
 // Color Content
 int colorContent(){
-	init_pair(1, COLOR_GREEN, COLOR_BLACK); //Grass
-	init_pair(2, COLOR_BLUE, COLOR_BLACK); //Water
-	init_pair(3, COLOR_YELLOW, COLOR_BLACK); //Field
+	init_pair(1, COLOR_GREEN, COLOR_GREEN); //Grass
+	init_pair(2, COLOR_BLUE, COLOR_BLUE); //Water
+	init_pair(3, COLOR_YELLOW, COLOR_YELLOW); //Field
 	init_pair(4, COLOR_WHITE, COLOR_BLACK); //Text
 	init_pair(5, COLOR_MAGENTA, COLOR_BLACK); //Player
 	init_pair(6, COLOR_RED, COLOR_BLACK); //Spikes
-	init_pair(7, COLOR_CYAN, COLOR_BLACK); //NPC
-	init_pair(8, COLOR_RED, COLOR_RED);
+	init_pair(7, COLOR_CYAN, COLOR_GREEN); //NPC
 	
 	return 0;
 }
@@ -69,10 +66,10 @@ int printKey(int offX, int offY){
 
 int printGrid(){
 	attron(COLOR_PAIR(1));
-	for(int i = 0; i < 20; i++){
+	for(int i = 0; i < 40; i++){
 		for(int ii = 0; ii < 20; ii++){
 			map[ii][i]='.';
-			mvprintw(ii,i*2,"%c",map[ii][i]);
+			mvprintw(ii,i,"%c",map[ii][i]);
 		}
 	}
 	for(int iii = 0; iii < 20; iii++){
@@ -86,10 +83,10 @@ int printGrid(){
 
 int printPond(){
 	attron(COLOR_PAIR(2));
-	for(int i = 0; i < 6; i++){
+	for(int i = 0; i < 12; i++){
 		for(int ii = 0; ii < 6; ii++){
 			pond[ii][i]='w';
-			mvprintw(ii+13,(i*2)+2,"%c",pond[ii][i]);
+			mvprintw(ii+13,(i)+2,"%c",pond[ii][i]);
 		}
 	}
 	return 0;
@@ -97,10 +94,10 @@ int printPond(){
 
 int printField(){
 	attron(COLOR_PAIR(3));
-	for(int i = 0; i < 6; i++){
+	for(int i = 0; i < 12; i++){
 		for(int ii = 0; ii < 6; ii++){
 			field[ii][i]='f';
-			mvprintw(ii+13,(i+11)*2,"%c",field[ii][i]);
+			mvprintw(ii+13,(i+22),"%c",field[ii][i]);
 		}
 	}
 	return 0;
@@ -197,8 +194,8 @@ int varReset(){
 }
 
 int caps(){
-	if(health > 100)
-		health = 100;
+	if(health > 500)
+		health = 500;
 	if(hunger > 100)
 		hunger = 100;
 	if(hunger < 0)
@@ -215,11 +212,11 @@ int checks(){
 
 int checkMath(){
 	if(moveCheckInt==1 && spikeCheckInt==1){
-		health-=10;
+		health-=20;
 		mvprintw(5,40,"You tread on some sharp spikes! (-20HP)");
 	}
 	if(moveCheckInt==1 && waterCheckInt==1){
-		health+=5;
+		health+=20;
 		mvprintw(5,40,"You wade through a healing pond! (+20HP)");
 	}
 	if(moveCheckInt==1 && fieldCheckInt==1){
@@ -227,14 +224,26 @@ int checkMath(){
 		mvprintw(5,40,"You wander through a field and find some food! (-5 Hunger)");
 	}
 	if(hunger < 0 && moveCheckInt==1){
-		health-=10;
+		health-=20;
 		attron(COLOR_PAIR(6));
 		mvprintw(6,40,"WARNING: Your Hunger has hit 0! (-20HP)");
 	}
 	return 0;
 }
 
-
+int quitBoolChoice(){
+	if(ch=='q'){
+		erase();
+		printw("Are you sure you want to quit?[y/n]");
+		if((ch=getch())=='y'){
+			quitBool = 1;
+		}
+		else if((ch=getch())=='n'){
+			quitBool = 0;
+		}
+	}
+	return 0;
+}
 
 // Main Stuff
 
