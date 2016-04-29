@@ -5,7 +5,7 @@ char bChar1;
 char bChar2=' ';
 
 int getBearing(){ //Gets the bearing and converts it if needed
-	printf("What is your compass bearing?\n");
+	printf("What is your compass bearing?\n>");
 	scanf("%d", &bearing);
 	bearing=bearing%360;
 	return 0;

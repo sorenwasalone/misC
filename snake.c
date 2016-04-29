@@ -1,14 +1,17 @@
 #include <ncurses.h>
 
-int map[10][10]={0};
+int map[30][30]={0};
+int px=5;
+int py=5;
+
 
 int mapdraw(){
-	for(int i=0;i<20;i++){
-		for(int ii=0;ii<20;i++){
+	for(int i = 0; i < 20; i++){
+		for(int ii = 0; ii < 20; ii++){
 			map[ii][i]='.';
-			mvprintw(ii,i,"%s",map[ii][i]);
+			mvprintw(ii,i,"%c",map[ii][i]);
 		}
-	}
+	}	
 	return 0;
 }
 
